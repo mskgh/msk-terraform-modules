@@ -6,14 +6,13 @@ resource "aws_dynamodb_table" "msk-dynamodb-tables" {
   hash_key       = var.msk-dynamodb-table["hash_key"]
   range_key      = var.msk-dynamodb-table["range_key"]
 
-  attribute {
-    name = var.msk-dynamodb-table["hash_key"]
-    type = "S"
-  }
 
-  attribute {
-    name = var.msk-dynamodb-table["range_key"]
-    type = "S"
+  dynamic "attribute" {
+    for_each = var.msk-dynamodb-table-attributes
+    content {
+      name = attribute.value["name"]
+      type = attribute.value["type"]
+    }
   }
 
   ttl {

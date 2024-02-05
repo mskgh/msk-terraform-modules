@@ -15,3 +15,8 @@ variable "tags" {
   type        = map(string)
   description = "Dynamodb tage tags are required"
 }
+
+variable "msk-dynamodb-table-attributes" {
+  type        = list(map(string))
+  description = "Dynamodb attributes are required"
+}
